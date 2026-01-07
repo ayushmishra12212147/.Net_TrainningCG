@@ -18,6 +18,8 @@ namespace Test2
                 DefaultIncome.DiscriptionOfTransaction="Initial balance";
                 DefaultIncome.source="Start Balance";
 
+            
+            incomeLedger.AddEntry(DefaultIncome);
             //Creating a do while to create a console app as menu driven for user
 
             do
@@ -124,4 +126,5 @@ namespace Test2
 
         }
     }
+
 }
