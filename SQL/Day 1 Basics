@@ -1,0 +1,9 @@
+--Create Database LPU_Db;
+--use LPU_Db;
+
+Create schema PankajBatch
+
+Create Table PankajBatch.Person(Id int primary key, Name varchar(20) Not Null,
+					Age int,
+					Address varchar(50),
+					PhoneNo varchar(50),)
