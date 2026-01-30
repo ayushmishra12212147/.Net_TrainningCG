@@ -1,0 +1,81 @@
+use LPU_Db
+
+create Table Dummy (dummyId uniqueidentifier,
+					name varchar(15));
+
+select * from Dummy;
+
+insert into Dummy(name) values ('Alok');
+
+--alias type or custom data type is created from a previously created datatype.
+--Create Type Address from varchar(50) not null;
+
+Drop Table Dummy
+
+--using Custom Created Address Data Type in code 
+--create table StudentInfov (RollNo int Primary Key,
+--							Name varchar(30) not null,
+	--						Age smallint not null,
+		--					LocalAddr Address,
+			--				PerAddress Address);
+
+insert into StudentInfov(Name,Age,LocalAddr, PerAddress, RollNo) Values('Alok',22,'Pune','LPU, Jalandhar',101);
+
+
+Select * from StudentInfov;
+--Checking Nirthwind (inbuild table)
+use Northwind;
+select * from Customers;
+
+select count(*) from [Order Details];
+--how to add new column to table and make it not null;
+Alter Table studentInfov Add PhoneNo Varchar(10);
+Alter Table StudentInfov Add SchoolName varchar(10) default 'RKVM';
+-- both columbs will be null by default 
+--By default RKVM value will come
+--Insert into StudentInfov(RollNo,Name,Age, LocalAddr ,PerAddress, PhoneNo) Values(102,'Riya',22,'Lucknow','Delhi',3737373737);
+
+
+create Table StudentMarks(srNo int identity(1000,1),
+							RollNo int References dbo.StudentInfov(RollNo),
+							Phy int Not null, Chem int not null,Maths int not null,
+							totMarks AS (Phy+Chem+Maths),
+							Per AS (Phy+Chem+Maths)/3);
+
+
+insert into StudentMarks (RollNo,Phy,Chem,Maths) Values (101,85,65,75);
+
+
+select * from StudentMarks;
+drop Table StudentMarks;
+
+--sp_help StudentInfov 
+
+--insert into StudentInfov(RollNo, Name,Age,LocalAddr, PerAddress ) Values(103,'Aman',10,'Patna','Mathura');
+
+Create default Agedefault
+AS 18 Go
+
+update studentinfov set Age=24 where RollNo=103;
+Select * from StudentInfov;
+
+Alter table studentInfov
+Add Constraint CHK_Age
+CHECK (Age>= 18 AND age<=60);
+
+
+insert into StudentInfov(RollNo, Name,Age,LocalAddr, PerAddress ) Values(104,'Aman',10,'Patna','Mathura');
+
+
+Create DEFAULT DF_HomeTown
+AS 'PUNE'
+GO
+
+EXEC sp_bindefault DF_HomeTown,
+'StudentInfov.LocalAddr'
+
+
+
+
+
+
